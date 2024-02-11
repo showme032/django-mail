@@ -1,1 +1,1 @@
-Website for creating local accounts and exchanging email, built on Django framework.
+Website for creating local accounts and exchanging "emails", built on Django framework.

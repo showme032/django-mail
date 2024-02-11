@@ -1,0 +1,90 @@
+{% extends "mail/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="container">
+        <div class="navbar justify-content-start mt-1 mb-0">
+            <div class="btn-group me-1 mb-0" role="group" aria-label="radio buttons">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                <label class="btn btn-outline-primary shadow-sm" for="btnradio1" id="inbox">Inbox</label>
+                
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <label class="btn btn-outline-primary shadow-sm" for="btnradio2" id="compose">Compose</label>
+                
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                <label class="btn btn-outline-primary shadow-sm" for="btnradio3" id="sent">Sent</label>
+                
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                <label class="btn btn-outline-primary shadow-sm" for="btnradio4" id="archived">Archived</label>
+            </div>
+            <a class="btn d-flex btn-sm btn-outline-secondary shadow-sm" href="{% url 'logout' %}">Log Out</a>
+
+            <p id="email-user" class="ms-auto navbar-text fs-3 fw-medium text-secondary">{{ request.user.email }}</p>
+        </div>
+    </div>
+    
+    <hr class="mt-0 bg-dark-subtle">
+
+    <!--view for viewing emails from the inbox-->
+    <div id="emails-view" class="container align-top mb-2 mt-4">
+    </div>
+
+    <!--view for single email-->
+    <div class="container">
+        <div id="view-email" class="card shadow-sm mt-5">
+            <!--javascript fills in-->
+            <div class="card-header">
+                <div class="container mt-2">
+                    <p id="sender" class="text-black"></p>
+                    <p id="recipients" class="text-black"></p>
+                    <p id="timestamp" class="col text-body-secondary"></p>
+                </div> 
+            </div>
+            <div class="card-body">
+                <nav class="navbar ms-3 me-3">
+                    <p id="title" class="col card-title h5"></p>
+                    <button id="archive" class="btn btn-sm btn-primary shadow-sm" style="display: none;"></button>
+                    <button id="reply" class="btn ms-2 btn-sm btn-primary shadow-sm">Reply</button>
+                </nav>
+    
+                <div class="container">
+                    <p id="body" class="card-text pt-3 ps-3 pe-3"></p>
+                </div>  
+            </div>
+        </div>
+    </div>
+
+    <!--view for composing emails-->
+    <div id="compose-view" class="container">
+        <h3>New Email</h3>
+        <form id="compose-form">
+            <div class="mb-3">
+                <label for="from-input" class="form-label">From</label>
+                <input id="from-input" disabled class="form-control shadow-sm" value="{{ request.user.email }}">
+            </div>
+            <div class="mb-3">
+                <label for="compose-recipients" class="form-label">To</label>
+                <input autofocus="autofocus" class="form-control shadow-sm" id="compose-recipients" placeholder="Recipients">
+            </div>
+            <div class="mb-3">
+                <input class="form-control shadow-sm" id="compose-subject" placeholder="Subject">
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control shadow-sm" id="compose-body" placeholder="Body" rows="12"></textarea>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-primary shadow-sm" type="submit" value="Send Email"/>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'mail/inbox.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+{% endblock %}
+
+
+
+
